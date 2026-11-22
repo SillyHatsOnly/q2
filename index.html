@@ -6,14 +6,16 @@
 <script>
 (function () {
   try {
+    document.documentElement.classList.add("js");
     var t = localStorage.getItem("q2-handbook-theme");
     if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
-  } catch (e) {}
+  } catch (e) {
+    try { document.documentElement.classList.add("js"); } catch (e2) {}
+  }
 })();
 </script>
 <title>QIDI Q2 + Box — учебник</title>
 <meta name="description" content="Бесплатный учебник QIDI Q2 + QIDI Box с нуля: распаковка, первая печать PLA, первый слой, материалы, слайсер Studio/Orca, безопасность и уход. На русском.">
-<meta name="keywords" content="QIDI Q2, QIDI Box, учебник 3D печати, FDM для новичков, первая печать PLA, QIDI Studio, Orca Slicer, Combo">
 <meta name="author" content="SillyHatsOnly">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -52,7 +54,7 @@
   ],
   "isAccessibleForFree": true,
   "dateModified": "2026-11-22",
-  "version": "4.0.0"
+  "version": "4.0.1"
 }
 </script>
 <style>
@@ -207,10 +209,18 @@
   .checklist label { cursor: pointer; }
   code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.92em; }
   .src { font-family: "Segoe UI", Helvetica, Arial, sans-serif; font-size: 13px; color: var(--muted); }
+  @media (max-width: 1240px) and (min-width: 901px) {
+    .layout { grid-template-columns: 240px minmax(0, 1fr); padding: 0 16px; }
+    nav {
+      grid-column: 1; justify-self: stretch; max-width: none; width: auto;
+      padding: 22px 16px 40px 0;
+    }
+    main { grid-column: 2; padding: 36px 16px 80px 24px; }
+  }
   @media (max-width: 900px) {
     .layout { grid-template-columns: minmax(0, 1fr); padding: 0; }
     nav {
-      grid-column: 1; justify-self: stretch; width: auto;
+      grid-column: 1; justify-self: stretch; width: auto; max-width: none;
       position: relative; height: auto; border-right: 0; border-bottom: 1px solid var(--line);
       background: var(--nav); padding: 16px;
     }
@@ -251,7 +261,9 @@
   button.reset:hover { border-color: var(--accent); color: var(--accent); }
   @media (max-width: 900px) {
     #tog { display: block; }
-    nav:not(.open) a, nav:not(.open) .g { display: none; }
+    /* Сворачиваем только если JS жив: иначе оглавление остаётся открытым */
+    html.js nav:not(.open) #toc a,
+    html.js nav:not(.open) #toc .g { display: none; }
   }
   @media print {
     #bar, #tog, button.reset { display: none; }
@@ -289,8 +301,7 @@
     align-items: start;
     max-width: none;
   }
-  .imgrow.one, .imgrow.screens { grid-template-columns: minmax(0, 1fr); max-width: 720px; }
-  .imgrow.docs { grid-template-columns: minmax(0, 1fr); max-width: 640px; }
+  .imgrow.one { grid-template-columns: minmax(0, 1fr); max-width: 720px; }
   .imgrow.modshots { gap: 12px; margin: 10px 0 6px; }
   .imgrow figure { margin: 0; min-width: 0; }
   .imgrow.modshots img {
@@ -330,6 +341,7 @@
     padding: 6px 12px;
   }
   #lb .lb-stage {
+    display: flex; /* без align/justify: margin:auto центрирует короткое; 1:1 скроллится с (0,0) */
     flex: 1; min-height: 0; width: min(96vw, 1400px); margin: 0 auto; overflow: auto;
   }
   #lb img {
@@ -461,7 +473,7 @@
 
 <header class="dochead">
   <div class="dochead-row">
-    <p class="meta"><span class="verpill">v4.0.0</span> 22 ноября 2026 · страница от 22.11, прошивка и чаты сверены 16.11 · <a href="https://github.com/SillyHatsOnly/q2" target="_blank" rel="noopener">GitHub</a></p>
+    <p class="meta"><span class="verpill">v4.0.1</span> 22 ноября 2026 · страница от 22.11, прошивка и чаты сверены 16.11 · <a href="https://github.com/SillyHatsOnly/q2" target="_blank" rel="noopener">GitHub</a></p>
     <button type="button" id="theme" class="theme-btn" aria-label="День или ночь">Ночь</button>
   </div>
 </header>
@@ -547,14 +559,15 @@
   <tr><td>Габарит и вес</td><td>принтер 402 × 438 × 494 мм, 18.1 кг; Box 357 × 300 × 234 мм, 4.35 кг</td><td>Нужен жёсткий стол с запасом вокруг и сзади: сзади в жёлоб выходят отходы смены пластика.</td></tr>
 </table>
 <p class="src">Источник цифр: карточка QIDI Q2 и карточка QIDI Box, 2026; ограничение объёма — wiki «Print volume limitations».</p>
+<p class="meta">Слева направо, сверху вниз.</p>
 <div class="imgrow">
-  <figure class="doc" style="margin:0">
+  <figure class="doc">
     <img src="guide/media/q2-overview.png?v=3.2" alt="QIDI Q2" loading="lazy" width="1601" height="621">
-    <figcaption class="cap">QIDI Q2 — официальный обзорный рисунок узлов</figcaption>
+    <figcaption class="cap">1 · QIDI Q2 — официальный обзорный рисунок узлов</figcaption>
   </figure>
-  <figure class="doc" style="margin:0">
+  <figure class="doc">
     <img src="guide/media/box-product.png?v=3.2" alt="QIDI Box" loading="lazy" width="459" height="316">
-    <figcaption class="cap">QIDI Box — внешний вид</figcaption>
+    <figcaption class="cap">2 · QIDI Box — внешний вид</figcaption>
   </figure>
 </div>
 <p class="src">Источники: wiki.qidi3d.com (Q2 overview, QIDI BOX).</p>
@@ -569,7 +582,7 @@
 <ul>
   <li>Сопло при печати 200–280 °C (предел нагревателя 370 °C), стол до 120 °C, воздух в камере до 65 °C. Остывшее на вид сопло всё ещё жжёт.</li>
   <li>Печатающая головка ездит быстро — не суйте руки внутрь на ходу. Детей и животных с работающим станком не оставляйте одних; детям — только под присмотром взрослого (так и в инструкции Box).</li>
-  <li>Перед включением проверьте шильдик: у Q2 региональные блоки 110 В или 220–240 В, тумблера нет. Для розетки 220–240 В / 50 Гц нужен экземпляр на это напряжение и исправное заземление. Принтер включают в настенную розетку, без чайника и обогревателя в той же колодке. Если до розетки не дотянуться — один короткий удлинитель с запасом по току, без цепочки переходников. Сомневаетесь в линии — зовите электрика. Шнур Box не втыкайте в другой прибор: на нём так и написано в карточке.</li>
+  <li>Перед включением проверьте шильдик: у Q2 региональные блоки 110 В или 220–240 В, тумблера нет. Для розетки 220–240 В / 50 Гц нужен экземпляр на это напряжение и исправное заземление. Принтер включают в настенную розетку, без чайника и обогревателя в той же колодке. Если до розетки не дотянуться — розетку и любой удлинитель согласовывает взрослый или электрик: новичок сам кабель «на глаз» не оценивает. Тонкие удлинители, чайник на той же колодке и цепочки переходников — нет. Шнур Box не втыкайте в другой прибор: на нём так и написано в карточке.</li>
   <li>Паспортные мощности в сумме: 350 + 280 + 245 = 875 Вт, то есть около 900 Вт. Это потолок, если стол, камера и Box греют разом, а не постоянный расход. Тонкий удлинитель и чайник на той же колодке сюда не ставят.</li>
   <li>В помещении — рабочий датчик дыма, и рядом средство, которым уже умеете пользоваться: огнетушитель или противопожарное полотно. Датчик только подаёт сигнал, сам он ничего не тушит. Вокруг нет ветоши, растворителей и картонных коробок вплотную к горячему.</li>
   <li><strong>Работа без присмотра.</strong> Пока учитесь, запускайте печать только если рядом кто-то, кто сможет быстро остановить сбой — вы сами у станка или другой человек в комнате. Не оставляйте работающий принтер на ночь и не уходите надолго. Удачные прошлые печати не делают следующую «безопасной без присмотра». Датчик дыма — хорошая подстраховка, но не разрешение уйти. Камера на корпусе и детектор «спагетти» показывают брак, а не тушат пожар; восстановление после отключения света тоже не про пожар.</li>
@@ -705,18 +718,19 @@
 <div class="call ok"><strong>Какой компьютер главный.</strong> Удобнее всего <strong>Windows 11</strong>: под него ориентированы учебный маршрут и скриншоты. Подойдёт и свежий Linux — ставьте Studio и Orca с официальных страниц релизов (часто AppImage), не копируйте чужой профиль «с соседнего ПК» без проверки версии. Windows 10 с октября 2025 без обычной поддержки Microsoft: если остаётесь, понимайте условия обновлений безопасности / ESU. Orca на старте не обязателен: первая печать идёт из Studio. Если позже поставите Orca под Box — версия и printer agents, см. <a href="#slicer">слайсер</a>.</div>
 <div class="call ok"><strong>Fluidd и сеть.</strong> После Wi‑Fi или кабеля на экране принтера появляется IP. В браузере компьютера <em>в той же домашней сети</em> откройте <code>http://&lt;этот-IP&gt;/</code> — это веб-панель Fluidd (статус, файлы, часть настроек). Для первой печати она не нужна. Не открывайте Fluidd в интернет и не пробрасывайте порты роутера наружу. У панели на домашней сети нет пароля, поэтому принтер держите в своей сети, не в гостевой: гостевая либо показывает её чужим, либо отрезает ваш компьютер от принтера. Катушки Box на ветке 01.01.03 через Fluidd не настраивают — только Studio. В wiki Q2 есть режим без облака (LAN Only): принтер работает в локальной сети без учётки — смотрите актуальную страницу настроек.</div>
 
+<p class="meta">Слева направо, сверху вниз.</p>
 <div class="imgrow screens">
-  <figure class="doc" style="margin:0">
+  <figure class="doc">
     <img src="guide/media/wifi-connect.png?v=3.2" alt="Wi-Fi" loading="lazy" width="1501" height="651">
-    <figcaption class="cap">Сеть подключена, IP виден на экране</figcaption>
+    <figcaption class="cap">1 · Сеть подключена, IP виден на экране</figcaption>
   </figure>
-  <figure class="doc" style="margin:0">
+  <figure class="doc">
     <img src="guide/media/studio-add-printer.png?v=3.2" alt="Studio" loading="lazy" width="1896" height="826">
-    <figcaption class="cap">Добавление принтера в QIDI Studio</figcaption>
+    <figcaption class="cap">2 · Добавление принтера в QIDI Studio</figcaption>
   </figure>
-  <figure class="doc" style="margin:0">
+  <figure class="doc">
     <img src="guide/media/studio-link.png?v=3.2" alt="Связь" loading="lazy" width="1200" height="750">
-    <figcaption class="cap">Связь приложения и принтера (исторический кадр: на скрине ещё QIDI Link / PLUS4; сейчас приложение — QIDI Maker, принтер — Q2)</figcaption>
+    <figcaption class="cap">3 · Связь приложения и принтера (исторический кадр: на скрине ещё QIDI Link / PLUS4; сейчас приложение — QIDI Maker, принтер — Q2)</figcaption>
   </figure>
 </div>
 <p class="src">Источник: wiki.qidi3d.com (Wi‑Fi / Studio connect).</p>
@@ -799,24 +813,25 @@
 </figure>
 
 <ol class="steps">
-  <li>Лист PEI снять, помыть тёплой водой с каплей средства для посуды, вытереть безворсовой салфеткой, поставить на место. Голыми пальцами по середине потом не елозить. Перед печатью можно протереть изопропанолом.</li>
+  <li>Лист PEI снять, помыть тёплой водой с каплей средства для посуды, вытереть безворсовой салфеткой, поставить на место. Голыми пальцами по середине потом не елозить. Перед печатью можно протереть изопропанолом, если он уже куплен (в списке до первой печати его нет — см. <a href="#buy">что купить</a>).</li>
   <li>Нагрев камеры выключен. Перед стартом откройте переднюю дверь и сдвиньте верхнее стекло (люк) назад — для PLA это штатный режим QIDI, не «на всякий случай». Почему — в <a href="#door">«Дверь и люк»</a>; режимы всех пластиков — в <a href="#mat-table">таблице материалов</a>.</li>
   <li>Загрузить PLA. Если Box уже подключён — в подсвеченный слот Box, не во внешний вход сзади. Если Box ещё не стоит — во вход на голове, до упора, как в <a href="https://wiki.qidi3d.com/en/Q2/Load-filament">Load filament</a>. Два пути сразу не соединяют. Дождитесь нагрева и ровной колбаски из сопла. Температура для примера у QIDI в инструкции загрузки — 220 °C.</li>
   <li>На экране: печать из внутренней памяти / Local / Print files (название от прошивки к прошивке немного меняется): <strong>встроенный</strong> Benchy или куб. Это готовое задание из памяти принтера. В быстром старте оно заточено под PLA Rapido: температуры уже записаны внутри, этикетка вашей катушки их сама не перепишет. Берите PLA того же класса. Свою модель позже режут в Studio уже по этикетке: ориентир для обычного PLA — сопло 200–230 °C, стол 60 °C. Карточка «сопло до 370» сюда не относится. Перед стартом гляньте оценку времени на экране: «простая лодочка» часто идёт десятки минут.</li>
   <li>Первый слой смотрите глазами: хороший — плотные ряды без щелей и каши; плохой — паутина или пашня. Не бросайтесь сразу крутить Z: сначала карта стола, чистый лист и несколько спокойных наблюдений — порядок в <a href="#layer">следующем разделе</a>. Дайте столу остыть (ориентир ниже ~40 °C, лучше ближе к комнатной): горячий пластик мнётся при съёме, а остывший текстурный PEI чаще отпускает деталь сам. Холодный лист «сдирать насмерть» не нужно — подождите и снимите скребком без рывка.</li>
 </ol>
+<p class="meta">Слева направо, сверху вниз.</p>
 <div class="imgrow screens">
-  <figure class="doc" style="margin:0">
+  <figure class="doc">
     <img src="guide/media/load-filament-1.png?v=3.2" alt="Загрузка 1" loading="lazy" width="480" height="272">
-    <figcaption class="cap">Вставить пруток до упора</figcaption>
+    <figcaption class="cap">1 · Вставить пруток до упора</figcaption>
   </figure>
-  <figure class="doc" style="margin:0">
+  <figure class="doc">
     <img src="guide/media/load-filament-2.png?v=3.2" alt="Загрузка 2" loading="lazy" width="480" height="272">
-    <figcaption class="cap">Дождаться автоподачи</figcaption>
+    <figcaption class="cap">2 · Дождаться автоподачи</figcaption>
   </figure>
-  <figure class="doc" style="margin:0">
+  <figure class="doc">
     <img src="guide/media/load-filament-flow.png?v=3.2" alt="Поток из сопла" loading="lazy" width="2688" height="1704">
-    <figcaption class="cap">Из сопла идёт ровная колбаска — загрузка ок</figcaption>
+    <figcaption class="cap">3 · Из сопла идёт ровная колбаска — загрузка ок</figcaption>
   </figure>
 </div>
 <p class="src">Загрузка прутка: wiki.qidi3d.com/en/Q2/Load-filament</p>
@@ -840,29 +855,30 @@
   <li><strong>Не в первый месяц:</strong> правка ремней «на слух», команда смещения сопла в старте слайсера, второе сохранение зазора в Fluidd, ручная правка карты стола, подачи и температур в конфиге, чужие макросы. Input Shaping после прошивки запускают штатной кнопкой в меню. Коэффициенты руками не вводят.</li>
 </ol>
 
-<figure class="doc">
-  <img src="guide/media/first-layer-compare.png?v=3.2" alt="Три варианта первого слоя" loading="lazy" width="1199" height="500">
-  <figcaption>Слева сопло высоко (щели), в центре норма, справа слишком низко (гребни, вдавливание).<div class="srcnote">Источник: wiki.qidi3d.com — Not Sticking to the Bed</div></figcaption>
-</figure>
-<figure class="doc">
-  <img src="guide/media/first-layer-gap.png?v=3.2" alt="Схема зазора сопла" loading="lazy" width="2400" height="1212">
-  <figcaption>Та же идея на схеме: далеко / норма / близко.<div class="srcnote">Источник: Wikimedia Commons — 3D printing calibration build plate first layer gap</div></figcaption>
-</figure>
+<p class="meta">Слева направо, сверху вниз.</p>
 <div class="imgrow screens">
-  <figure class="doc" style="margin:0">
+  <figure class="doc">
+    <img src="guide/media/first-layer-compare.png?v=3.2" alt="Три варианта первого слоя" loading="lazy" width="1199" height="500">
+    <figcaption class="cap">1 · Слева сопло высоко, в центре норма, справа слишком низко<div class="srcnote">wiki.qidi3d.com — Not Sticking to the Bed</div></figcaption>
+  </figure>
+  <figure class="doc">
+    <img src="guide/media/first-layer-gap.png?v=3.2" alt="Схема зазора сопла" loading="lazy" width="2400" height="1212">
+    <figcaption class="cap">2 · Та же идея на схеме: далеко / норма / близко<div class="srcnote">Wikimedia Commons — first layer gap</div></figcaption>
+  </figure>
+  <figure class="doc">
     <img src="guide/media/screen-print-ui.png?v=3.2" alt="Экран печати" loading="lazy" width="1501" height="651">
-    <figcaption class="cap">Интерфейс печати на экране Q2</figcaption>
+    <figcaption class="cap">3 · Интерфейс печати на экране Q2</figcaption>
   </figure>
-  <figure class="doc" style="margin:0">
+  <figure class="doc">
     <img src="guide/media/screen-print-settings.png?v=3.2" alt="Настройки" loading="lazy" width="1501" height="651">
-    <figcaption class="cap">Экран настроек печати / Z</figcaption>
+    <figcaption class="cap">4 · Экран настроек печати / Z</figcaption>
   </figure>
-  <figure class="doc" style="margin:0">
+  <figure class="doc">
     <img src="guide/media/prusa-first-layer-calib.jpg?v=3.2" alt="Справочно Prusa" loading="lazy" width="800" height="318">
-    <figcaption class="cap">Как выглядит хороший первый слой (другой принтер, та же физика)</figcaption>
+    <figcaption class="cap">5 · Эталон вида слоя (другой принтер, та же физика)<div class="srcnote">help.prusa3d.com</div></figcaption>
   </figure>
 </div>
-<p class="src">Скриншоты экрана Q2 — wiki QIDI; правый кадр — help.prusa3d.com (только как эталон вида слоя).</p>
+<p class="src">Кадры 3–4 — wiki QIDI; кадр 5 — Prusa, только как эталон вида слоя.</p>
 <div class="call ok"><strong>Текстурный PEI ≠ гладкий на фото Prusa.</strong> На Q2 лист текстурный: линии первого слоя видны слабее, чем на гладких кадрах из справки. Ориентир глазами — нет щелей между линиями, нет каши и скрежета, деталь держится. Во время печати слой руками не трогают.</div>
 
 <div class="call warn"><strong>Когда всё-таки крутить Z.</strong>
@@ -935,8 +951,8 @@
 <p>В wiki «Print with door open» для PETG нагрев камеры выключен, дверь закрыта, люк на месте; если внутри слишком жарко — приоткройте люк (формулировки у QIDI в разных гайдах расходятся: смотрите актуальную страницу и температуру на экране). К голому PEI липнет сильнее PLA: тонкий клей-карандаш — разделительный слой; стол остужают (ориентир ниже ~40 °C) и снимают без рывка. Если пластик пузырится и тянет волоски — он влажный: сушите катушку, а не крутите температуру «на глаз».</p>
 <h3>ASA и ABS</h3>
 <p><strong>Зачем:</strong> уличное крепление, авто-мелочи, корпуса, которым нужна выше теплостойкость и стойкость к солнцу (ASA обычно лучше ABS на улице).</p>
-<p><strong>Когда:</strong> после PETG, в проветриваемой комнате.</p>
-<p>Сильно усаживаются и пахнут: дверь и люк закрыты, камера прогрета, brim, клей. См. <a href="#safety">безопасность</a>.</p>
+<p><strong>Когда:</strong> после PETG, только при подходящем месте и удалении выбросов наружу. Если таких условий нет — отложите эти материалы (см. <a href="#safety">безопасность</a>).</p>
+<p>Сильно усаживаются и пахнут: дверь и люк закрыты, камера прогрета, brim, клей.</p>
 <h3>TPU 95A</h3>
 <p><strong>Зачем:</strong> амортизаторы, уплотнители, гибкие ножки, чехлы, «резиноподобные» шарниры.</p>
 <p><strong>Когда:</strong> когда жёсткие пластики уже предсказуемы.</p>
@@ -992,18 +1008,19 @@
 </tbody></table></div>
 
 <h2 id="box">QIDI Box: что ему можно</h2>
+<p class="meta">Слева направо, сверху вниз.</p>
 <div class="imgrow docs">
-  <figure class="doc" style="margin:0">
+  <figure class="doc">
     <img src="guide/media/box-product.png?v=3.2" alt="QIDI Box" loading="lazy" width="459" height="316">
-    <figcaption class="cap">Внешний вид</figcaption>
+    <figcaption class="cap">1 · Внешний вид</figcaption>
   </figure>
-  <figure class="doc" style="margin:0">
+  <figure class="doc">
     <img src="guide/media/box-parts-en.png?v=3.2" alt="Узлы EN" loading="lazy" width="662" height="993">
-    <figcaption class="cap">Слайдер, питание, вентиляция, кабели</figcaption>
+    <figcaption class="cap">2 · Слайдер, питание, вентиляция, кабели</figcaption>
   </figure>
-  <figure class="doc" style="margin:0">
+  <figure class="doc">
     <img src="guide/media/box-usage-en.png?v=3.2" alt="Usage Notice" loading="lazy" width="662" height="993">
-    <figcaption class="cap">TPU 95A / размеры шпули / PTFE расходник</figcaption>
+    <figcaption class="cap">3 · TPU 95A / размеры шпули / PTFE расходник</figcaption>
   </figure>
 </div>
 <p class="src">Официальный BOX Start Guide (EN) и wiki.qidi3d.com/qidi_box.</p>
@@ -1022,14 +1039,15 @@
 <p><strong>RFID</strong> читает метку, если она есть и поддерживается. Чужую катушку без метки выставляют вручную. Метка врёт — верьте этикетке и Studio. При включении, если через хаб ещё не идёт пруток, Box может 1–2 минуты читать катушки — не объявляйте «сломался» сразу. <strong>Автодозаправка</strong> переключает на другую катушку только при совпадении производителя, типа и цвета (<a href="https://wiki.qidi3d.com/en/QIDIBOX/box-auto-refilling">Box Auto Refilling</a>). Температуру сопла wiki в эти три условия не ставит. После <em>Eject</em> кончик прутка иногда запутывается — перед намоткой расправьте его.</p>
 <p>Датчик температуры и влажности показывает воздух внутри Box. Влагу в самом прутке он не меряет. Нормальные цифры на экране ещё не значат, что катушка сухая. Если PETG пузырится и потрескивает, проверьте катушку и просушите её. Влажный пруток сушат. Настройками на мониторе воду из него не выгоняют.</p>
 
+<p class="meta">Слева направо, сверху вниз.</p>
 <div class="imgrow docs">
-  <figure class="doc" style="margin:0">
+  <figure class="doc">
     <img src="guide/media/box-usage-ru.png?v=3.2" alt="Правила Box на русском" loading="lazy" width="772" height="1158">
-    <figcaption class="cap">Те же правила на русском (BOX Start Guide)</figcaption>
+    <figcaption class="cap">1 · Те же правила на русском (BOX Start Guide)</figcaption>
   </figure>
-  <figure class="doc" style="margin:0">
+  <figure class="doc">
     <img src="guide/media/box-parts-ru.png?v=3.2" alt="Узлы Box на русском" loading="lazy" width="772" height="1158">
-    <figcaption class="cap">Слайдер, питание, вентиляция, кабели (RU)</figcaption>
+    <figcaption class="cap">2 · Слайдер, питание, вентиляция, кабели (RU)</figcaption>
   </figure>
 </div>
 
@@ -1047,18 +1065,19 @@
 <h3 id="external">Внешняя катушка, когда хаб Box уже подключён</h3>
 <p>Нужно для TPU 95A и любых случаев «сейчас мимо Box». Box и хаб сзади можно не отключать электрически: отсоединяют только трубку подачи от хаба к входу принтера и кормят голову с заднего держателя. Официально: <a href="https://wiki.qidi3d.com/en/QIDIBOX/print-with-external-filament">Print with external filament</a> (там же картинки).</p>
 <div class="call ok"><strong>Что должно получиться.</strong> Катушка на заднем держателе → пруток в голову без трубки от хаба → на экране / в Studio задание идёт с выключенным Box → из сопла на тесте экструзии идёт ровная колбаска.</div>
+<p class="meta">Слева направо, сверху вниз.</p>
 <div class="imgrow screens">
-  <figure class="doc" style="margin:0">
+  <figure class="doc">
     <img src="guide/media/external-filament-1.jpg?v=3.2" alt="Снять PTFE между хабом и входом" loading="lazy" width="4032" height="3024">
-    <figcaption class="cap">1. Снять PTFE между хабом Box и входом принтера</figcaption>
+    <figcaption class="cap">1 · Снять PTFE между хабом Box и входом принтера</figcaption>
   </figure>
-  <figure class="doc" style="margin:0">
+  <figure class="doc">
     <img src="guide/media/external-filament-2.jpg?v=3.2" alt="Пруток напрямую в экструдер" loading="lazy" width="4032" height="3024">
-    <figcaption class="cap">2. Заправить пруток с внешней катушки прямо в голову</figcaption>
+    <figcaption class="cap">2 · Заправить пруток с внешней катушки прямо в голову</figcaption>
   </figure>
-  <figure class="doc" style="margin:0">
+  <figure class="doc">
     <img src="guide/media/disable-box-screen.png?v=3.2" alt="Disable Box на экране" loading="lazy" width="1337" height="807">
-    <figcaption class="cap">3. На экране: Do not enable / Disable QIDI BOX</figcaption>
+    <figcaption class="cap">3 · На экране: Do not enable / Disable QIDI BOX</figcaption>
   </figure>
 </div>
 <figure class="doc">
@@ -1130,18 +1149,19 @@
   <li>Сохранить проект как 3MF — это файл, к которому возвращаются в слайсере. На принтер отправляют уже нарезанное задание: по сети из Studio или файлом на флешку.</li>
 </ol>
 Тот же порядок в Orca, когда до него дойдёте. Пока первая деталь — Studio. Для Orca главное в <a href="https://www.orcaslicer.com/wiki/">wiki Orca</a> — три пресета (printer / filament / process) и Preview по слоям.</div>
+<p class="meta">Слева направо, сверху вниз.</p>
 <div class="imgrow screens">
-  <figure class="doc" style="margin:0">
+  <figure class="doc">
     <img src="guide/media/studio-plate-slice.png?v=3.9.9" alt="Модель на столе QIDI Studio и кнопка Slice plate" loading="lazy" width="1920" height="1030">
-    <figcaption class="cap">Деталь лежит на столе. Кнопка справа сверху — Slice plate</figcaption>
+    <figcaption class="cap">1 · Деталь лежит на столе. Кнопка справа сверху — Slice plate</figcaption>
   </figure>
-  <figure class="doc" style="margin:0">
+  <figure class="doc">
     <img src="guide/media/studio-preview.png?v=3.9.9" alt="Предпросмотр слоёв в QIDI Studio" loading="lazy" width="1920" height="1028">
-    <figcaption class="cap">Вкладка Preview: цветные дорожки, время, граммы, ползунок слоёв</figcaption>
+    <figcaption class="cap">2 · Вкладка Preview: цветные дорожки, время, граммы, ползунок слоёв</figcaption>
   </figure>
-  <figure class="doc" style="margin:0">
+  <figure class="doc">
     <img src="guide/media/studio-send.png?v=3.9.9" alt="Окно отправки задания из QIDI Studio" loading="lazy" width="1920" height="1033">
-    <figcaption class="cap">Print plate открывает окно Send: имя файла, принтер в сети, кнопка отправки</figcaption>
+    <figcaption class="cap">3 · Print plate открывает окно Send: имя файла, принтер в сети, кнопка отправки</figcaption>
   </figure>
 </div>
 <p class="src">Кадры из <a href="https://wiki.qidi3d.com/en/software/qidi-studio/quick-guide">QIDI Studio Quick Start</a>. Сняты на Q1 Pro: стол на картинке 245×245, в первых двух кадрах выбран ABS и слой 0.10 мм. Кнопки те же. На Q2 в первый раз в этих же местах выбирают принтер QIDI Q2, сопло 0.4, PLA и слой 0.20 мм. Флешка — соседний пункт меню, Export G-code file.</p>
@@ -1391,7 +1411,8 @@
 <tr><td>Вывод</td><td>Осмотрен / повторяемость проверена / точность по эталону проверена / требуется обмен</td></tr>
 </tbody></table></div>
 <h3>Чек-лист первого дня</h3>
-<div class="progress" data-progress-label="caliper">0 из 7 выполнено</div><div class="progressbar"><span data-progress-bar="caliper"></span></div>
+<div class="progress" id="caliper-progress-label" data-progress-label="caliper" role="status" aria-live="polite">0 из 7 выполнено</div>
+<div class="progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="7" aria-valuenow="0" aria-labelledby="caliper-progress-label"><span data-progress-bar="caliper"></span></div>
 <ul class="checklist" data-checkgroup="caliper">
  <li><label><input type="checkbox" data-id="cal-warm"> Инструмент прогрелся до комнатной температуры, губки и направляющая осмотрены.</label></li>
  <li><label><input type="checkbox" data-id="cal-zero"> Включён режим миллиметров (mm); губки очищены, сомкнуты и обнулены.</label></li>
@@ -1423,7 +1444,7 @@
 <table>
   <tr><th>Готово</th><th>Что сделать</th><th>Критерий «получилось»</th></tr>
   <tr><td><label><input type="checkbox" class="ex" data-id="ex-cube"> Куб 20 мм</label></td><td>Куб 20 мм из PLA на настройках по умолчанию. Измерить штангенциркулем по X, Y и Z.</td><td>Три числа записаны в журнал. Ориентир 19.8–20.2 мм; если вышло иначе, запишите числа: это точка отсчёта для поправок.</td></tr>
-  <tr><td><label><input type="checkbox" class="ex" data-id="ex-repeat"> Повтор куба</label></td><td>Тот же куб ещё раз, ни одной настройки не менять.</td><td>Два куба различаются меньше чем на 0.1 мм по каждой оси. Если нет, принтер ещё не повторяем: проверить лист, стол, катушку. Тонкая настройка рано.</td></tr>
+  <tr><td><label><input type="checkbox" class="ex" data-id="ex-repeat"> Повтор куба</label></td><td>Тот же куб ещё раз, ни одной настройки не менять.</td><td>Сравните два отпечатка при одинаковых настройках. Если результаты заметно различаются — повторите на нескольких образцах, меряйте в одинаковых местах и запишите диапазон. Это предварительная оценка повторяемости конкретной модели и профиля, не вердикт «принтер неточный». Ориентир 19.8–20.2 мм остаётся учебным, не спецификацией QIDI.</td></tr>
   <tr><td><label><input type="checkbox" class="ex" data-id="ex-holes"> Отверстия</label></td><td>Плоская плита с отверстиями 3, 4, 5 и 6 мм (простая модель с Printables). Измерить отверстия.</td><td>Записано, насколько каждое отверстие меньше заданного. Это ваша поправка для будущих деталей.</td></tr>
   <tr><td><label><input type="checkbox" class="ex" data-id="ex-orient"> Ориентация</label></td><td>Напечатайте две одинаковые полоски 10 × 3 × 60 мм: одну плашмя, другую вертикально. Ломать не нужно. Сравните, как легли слои относительно будущего изгиба, и геометрию.</td><td>В журнале — фото обеих и одна фраза про направление слоёв. Это картинка, не испытание на прочность.</td></tr>
   <tr><td><label><input type="checkbox" class="ex" data-id="ex-infill"> Заполнение</label></td><td>Один и тот же брусок с заполнением 15% и 40%. Взвесить на кухонных весах, засечь время печати.</td><td>В журнале по два числа: вес и время для каждого заполнения.</td></tr>
@@ -1457,7 +1478,7 @@
   <li><label><input type="checkbox" data-id="ready-studio"> Studio стоит, одна модель ушла с компьютера или флешки</label></li>
   <li><label><input type="checkbox" data-id="ready-box"> Понятно, какой пластик идёт через Box, а TPU 95A — нет</label></li>
   <li><label><input type="checkbox" data-id="ready-temps"> Температуры своей катушки записаны</label></li>
-  <li><label><input type="checkbox" data-id="ready-petg"> PETG с клеем уже был; ASA и TPU — по одной катушке после него, если комната позволяет</label></li>
+  <li><label><input type="checkbox" data-id="ready-petg"> PETG с клеем уже был; ASA — только при вытяжке наружу из <a href="#safety">безопасности</a>; TPU — после него, мимо Box</label></li>
 </ul>
 <p>Курс Fusion — следующий шаг после журнала и пары упражнений, не критерий «принтер готов». См. <a href="#course">курс</a>.</p>
 <p><span id="state"></span> <button type="button" class="reset" id="reset">Сбросить галочки готовности</button></p>
@@ -1515,14 +1536,15 @@
   <li><a href="https://www.printables.com/model/1636883-qidi-box-desiccant-vessel-qidi-q2-qidi-plus-4-qidi">Desiccant vessel</a> — больший объём, тоже на винты;</li>
   <li>без печати: дышащие мешочки (органза и аналоги) с гранулами в карманы между катушками.</li>
 </ul>
+<p class="meta">Слева направо, сверху вниз.</p>
 <div class="imgrow modshots">
-  <figure class="doc" style="margin:0">
+  <figure class="doc">
     <img src="guide/media/mods/mod-desiccant.jpg?v=3.9.8" alt="High capacity desiccant bin для Qidi Box" loading="lazy" width="793" height="641">
-    <figcaption class="cap">Корзинка под QIDI Box — Printables 1386559</figcaption>
+    <figcaption class="cap">1 · Корзинка под QIDI Box — Printables 1386559</figcaption>
   </figure>
-  <figure class="doc" style="margin:0">
+  <figure class="doc">
     <img src="guide/media/mods/mod-desiccant-vessel.jpg?v=3.9.8" alt="Desiccant vessel для Qidi Box" loading="lazy" width="1275" height="960">
-    <figcaption class="cap">Более объёмный vessel — Printables 1636883</figcaption>
+    <figcaption class="cap">2 · Более объёмный vessel — Printables 1636883</figcaption>
   </figure>
 </div>
 <p><strong>Как положить.</strong> Не забивайте Box «под крышку»: катушки свободно крутятся, вентиляцию и датчики не перекрывать. Печатать корзинку — <strong>PETG / ABS / ASA</strong>; после установки проверить, что борт катушки не трётся о корпус. Совмещённые «фидер + гель + гигрометр» на QIDI Maker — только по отзывам и вашей ревизии.</p>
@@ -1808,10 +1830,15 @@ onScroll();
     const saved = loadCheckState(key, boxes);
     const label = document.querySelector('[data-progress-label="'+name+'"]');
     const bar = document.querySelector('[data-progress-bar="'+name+'"]');
+    const meter = bar && bar.closest('[role="progressbar"]');
     function paint() {
       const n = boxes.filter(b => b.checked).length;
       if (label) label.textContent = n + " из " + boxes.length + " выполнено";
       if (bar) bar.style.width = (boxes.length ? (n / boxes.length * 100) : 0) + "%";
+      if (meter) {
+        meter.setAttribute("aria-valuemax", String(boxes.length));
+        meter.setAttribute("aria-valuenow", String(n));
+      }
     }
     function save() {
       saveCheckState(key, boxes);
@@ -1839,6 +1866,7 @@ onScroll();
   const btnOpen = document.getElementById("lb-open");
   let i = 0;
   let mode = "fit";
+  let lastTrigger = null;
 
   function setMode(m) {
     mode = m;
@@ -1848,11 +1876,15 @@ onScroll();
     btnNative.classList.toggle("on", m === "native");
   }
 
+  function focusables() {
+    return [...lb.querySelectorAll("button")].filter(el => !el.disabled);
+  }
+
   imgs.forEach((img, idx) => {
     img.setAttribute("tabindex", "0");
     img.setAttribute("role", "button");
     img.title = "Нажмите, чтобы увеличить";
-    const open = () => show(idx);
+    const open = () => show(idx, img);
     img.addEventListener("click", open);
     img.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
   });
@@ -1864,9 +1896,11 @@ onScroll();
     return (cap.innerText || "").replace(/\s*Нажмите на картинку[\s\S]*$/, "").trim();
   }
 
-  function show(idx) {
+  function show(idx, trigger) {
+    if (trigger) lastTrigger = trigger;
     i = (idx + imgs.length) % imgs.length;
     const img = imgs[i];
+    if (!trigger) lastTrigger = lastTrigger || img;
     lbImg.src = img.currentSrc || img.src;
     lbImg.alt = img.alt || "";
     lbCap.textContent = (i + 1) + " / " + imgs.length + " — " + captionFor(img);
@@ -1881,6 +1915,7 @@ onScroll();
     lb.setAttribute("hidden", "");
     lbImg.removeAttribute("src");
     document.body.style.overflow = "";
+    if (lastTrigger && typeof lastTrigger.focus === "function") lastTrigger.focus();
   }
   btnClose.addEventListener("click", hide);
   btnPrev.addEventListener("click", () => show(i - 1));
@@ -1891,11 +1926,18 @@ onScroll();
   lb.addEventListener("click", e => { if (e.target === lb || e.target.classList.contains("lb-stage")) hide(); });
   addEventListener("keydown", e => {
     if (!lb.classList.contains("open")) return;
-    if (e.key === "Escape") hide();
+    if (e.key === "Escape") { e.preventDefault(); hide(); return; }
     if (e.key === "ArrowLeft") show(i - 1);
     if (e.key === "ArrowRight") show(i + 1);
     if (e.key === "1") setMode("native");
     if (e.key === "0") setMode("fit");
+    if (e.key === "Tab") {
+      const list = focusables();
+      if (!list.length) return;
+      const first = list[0], last = list[list.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
   });
 })();
 </script>
