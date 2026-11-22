@@ -290,26 +290,40 @@
     cursor: zoom-in;
     object-fit: contain; object-position: center;
   }
-  /* Единый порядок: слева направо, сверху вниз. Две колонки; .screens / .one / .docs — одна. */
+  /* Галереи: одинаковая высота рамки → подписи в ряду на одной линии; превью contain по центру. */
   .imgrow,
   .imgrow.three,
-  .imgrow.modshots {
+  .imgrow.modshots,
+  .imgrow.screens,
+  .imgrow.docs {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
     margin: 14px 0 18px;
-    align-items: start;
+    align-items: stretch;
     max-width: none;
   }
   .imgrow.one { grid-template-columns: minmax(0, 1fr); max-width: 720px; }
   .imgrow.modshots { gap: 12px; margin: 10px 0 6px; }
-  .imgrow figure { margin: 0; min-width: 0; }
-  .imgrow.modshots img {
-    width: 100%; height: auto; max-height: 280px;
-    object-fit: contain; background: var(--img-bg);
+  .imgrow figure {
+    display: flex; flex-direction: column;
+    margin: 0; min-width: 0;
   }
-  .imgrow.modshots .cap { font-size: 12px; line-height: 1.35; margin-top: 4px; }
-  .imgrow .cap { font-variant-numeric: tabular-nums; }
+  .imgrow:not(.one) figure > img {
+    width: 100%;
+    height: 220px;
+    max-height: none;
+    flex-shrink: 0;
+    object-fit: contain;
+    object-position: center;
+    background: var(--img-bg);
+  }
+  .imgrow.modshots .cap { font-size: 12px; line-height: 1.35; }
+  .imgrow .cap,
+  .imgrow figcaption {
+    font-variant-numeric: tabular-nums;
+    margin-top: 8px;
+  }
   @media (max-width: 900px) {
     .imgrow,
     .imgrow.three,
@@ -317,7 +331,10 @@
     .imgrow.one,
     .imgrow.screens,
     .imgrow.docs { grid-template-columns: minmax(0, 1fr); max-width: none; }
-    .imgrow.modshots img { max-height: none; }
+    .imgrow:not(.one) figure > img {
+      height: auto;
+      max-height: min(70vw, 420px);
+    }
   }
   .cap { font-family: "Segoe UI", Helvetica, Arial, sans-serif; font-size: 13px; color: var(--muted); margin-top: 6px; }
   .srcnote { font-family: "Segoe UI", Helvetica, Arial, sans-serif; font-size: 12px; color: var(--muted); margin-top: 4px; }
