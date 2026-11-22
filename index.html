@@ -210,8 +210,13 @@
   .imgrow.screens img { max-height: none; }
   .imgrow.three { grid-template-columns: 1fr 1fr; } /* photos: max 2 across, not tiny thirds */
   .imgrow.docs { grid-template-columns: 1fr; max-width: 640px; } /* PDF pages readable */
+  .imgrow.modshots { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin: 10px 0 6px; max-width: 920px; }
+  .imgrow.modshots figure { margin: 0; }
+  .imgrow.modshots img { max-height: 140px; object-fit: cover; cursor: zoom-in; }
+  .imgrow.modshots .cap { font-size: 12px; line-height: 1.35; margin-top: 4px; }
   @media (max-width: 900px) {
     .imgrow, .imgrow.three { grid-template-columns: 1fr; }
+    .imgrow.modshots { grid-template-columns: 1fr 1fr; }
   }
   .cap { font-family: "Segoe UI", Helvetica, Arial, sans-serif; font-size: 13px; color: var(--muted); margin-top: 6px; }
   .srcnote { font-family: "Segoe UI", Helvetica, Arial, sans-serif; font-size: 12px; color: var(--muted); margin-top: 4px; }
@@ -339,6 +344,7 @@
   <a href="#dry">Сушка и хранение</a>
   <a href="#box">QIDI Box</a>
   <a href="#external">Внешняя катушка</a>
+  <a href="#ysplitter">Y-splitter</a>
   <a href="#slicer">Слайсер</a>
   <a href="#model">Модель до курсов</a>
   <span class="g">5 · Если не так</span>
@@ -354,6 +360,7 @@
   <span class="g">Справочник</span>
   <a href="#care">Уход и регламент</a>
   <a href="#boxmods">Доработки Box</a>
+  <a href="#modorder">Порядок модов</a>
   <a href="#words">Словарь</a>
   <a href="#links">Куда смотреть дальше</a>
   <a href="#sources">Откуда факты</a>
@@ -362,7 +369,7 @@
 
 <header class="dochead">
   <div class="dochead-row">
-    <p class="meta"><span class="verpill">v3.9.5</span> 19 ноября 2026 · страница от 19.11, прошивка и чаты сверены 16.11 · <a href="https://github.com/SillyHatsOnly/q2" target="_blank" rel="noopener">GitHub</a></p>
+    <p class="meta"><span class="verpill">v3.9.6</span> 22 ноября 2026 · страница от 22.11, прошивка и чаты сверены 16.11 · <a href="https://github.com/SillyHatsOnly/q2" target="_blank" rel="noopener">GitHub</a></p>
     <button type="button" id="theme" class="theme-btn" aria-label="День или ночь">Ночь</button>
   </div>
 </header>
@@ -957,6 +964,37 @@
 </ol>
 <p>Сигнальный кабель Box под питанием не дёргают — только PTFE подачи. Если шлёте файл из Orca, галку «не включать Box» всё равно проверьте на экране принтера перед стартом: так надёжнее, пока учитесь.</p>
 
+<h4 id="ysplitter">Y-splitter: Box и внешняя катушка без перетыкания трубки</h4>
+<p>Это уже не день первый: сначала освойте штатный обход Box выше. Когда надоело каждый раз снимать PTFE хаб→принтер — ставят печатный <a href="https://www.printables.com/model/1413138-bowden-y-splitter-for-qidi-box-ams-pc4-m6">Bowden Y-splitter (PC4-M6)</a> (GoodHope, <strong>CC BY-NC-SA 4.0</strong>: можно для учёбы со ссылкой на автора, коммерция — нет). Два входа (хаб Box и внешняя катушка), один выход в голову. Одновременно два прутка в голову <em>не</em> кормят — активен один тракт. Для внешней печати галка <em>Disable BOX</em> всё равно нужна.</p>
+<div class="imgrow modshots">
+  <figure class="doc" style="margin:0">
+    <img src="guide/media/mods/mod-y-splitter.jpg?v=3.9.6" alt="Y-splitter установлен на сетапе" loading="lazy">
+    <figcaption class="cap">Установленный Y: хаб и внешний путь на месте<div class="srcnote">Printables 1413138 · GoodHope · CC BY-NC-SA</div></figcaption>
+  </figure>
+  <figure class="doc" style="margin:0">
+    <img src="guide/media/mods/mod-y-splitter-diagram.jpg?v=3.9.6" alt="Схема вставки PTFE в Y" loading="lazy">
+    <figcaption class="cap">Трубки — по схеме автора, не «на глаз»</figcaption>
+  </figure>
+  <figure class="doc" style="margin:0">
+    <img src="guide/media/mods/mod-y-splitter-install.jpg?v=3.9.6" alt="Сборка Y-splitter" loading="lazy">
+    <figcaption class="cap">Сборка и ориентация портов</figcaption>
+  </figure>
+  <figure class="doc" style="margin:0">
+    <img src="guide/media/mods/mod-y-splitter-supports.jpg?v=3.9.6" alt="Поддержки при вертикальной печати" loading="lazy">
+    <figcaption class="cap">Вертикальная печать: поддержки + support blocker</figcaption>
+  </figure>
+</div>
+<p><strong>Что нужно.</strong> Корпус модели; <strong>3× PC4-M6 through</strong> (проходные, не глухие); PTFE <strong>OD 4 мм × ID ≥ 3 мм</strong> (узкий ID модель не берёт); обрезки штатных трубок на короткие плечи хаб↔Y и внешний↔Y плюс кусок Y→вход принтера. Печатать <strong>PETG / ABS / ASA</strong>. У автора: сопло 0.4, первый слой 0.2, дальше 0.12; вертикальный вариант с подпорками он использует без зацепов прутка.</p>
+<ol class="steps">
+  <li>Вкрутите три PC4-M6 through до упора по резьбе — не срывайте пластик.</li>
+  <li>Порты по схеме: вход ← хаб Box (бывшая трубка хаб→принтер); вход ← внешняя катушка (задний держатель / сушилка); выход → вход экструдера Q2.</li>
+  <li>Вставьте PTFE до упора. Без перегибов и «гармошки» у головы. Если трубка трёт стекло или винты ручки — сначала <a href="#modorder">крышка винтов / райзер</a>, не клей на Y.</li>
+  <li><strong>Режим Box (цвет / слоты):</strong> внешний пруток выгружен из головы (во внешнем плече Y второго прутка в тракте нет) → загрузка слота как обычно → хаб → Y → голова → в задании Box <em>включён</em>.</li>
+  <li><strong>Режим внешней катушки (TPU и т.п.):</strong> <code>Unload</code> прутка Box → катушка сзади / из сушилки во второй вход Y → на экране / в Studio <code>Do not enable</code> / <code>Disable QIDI BOX</code> → тест экструзии, ровная колбаска. Смысл тот же, что wiki <a href="https://wiki.qidi3d.com/en/QIDIBOX/print-with-external-filament">Print with external filament</a>, только трубку хаба каждый раз не снимаете.</li>
+  <li>Вернуть штат без Y: выгрузить оба пути, снять Y, вернуть одну трубку хаб→вход до щелчка.</li>
+</ol>
+<div class="call warn"><strong>Нельзя.</strong> Два прутка одновременно «на всякий» в Y. Глухие (не through) PC4-M6. PTFE с ID меньше 3 мм. Печать снаружи при включённом Box в задании. Y не заменяет кронштейн хаба / держатель катушки — только перетыкание PTFE; кронштейны — в <a href="#modorder">порядке модов</a>.</div>
+
 
 <h3>Обслуживание QIDI Box</h3>
 <p>Box — отдельный электромеханический узел, не «ящик с катушками». Официально: <a href="https://wiki.qidi3d.com/en/QIDIBOX/maintenance">QIDI BOX Maintenance</a> — какие узлы смотреть. Календарные сроки в таблице ниже — <strong>домашний график осмотра автора учебника</strong>, не интервалы с шильдика QIDI. Работы — на обесточенном комплекте; разборку моторов, приводного вала «на всякий случай» и платы новичок не делает — только при признаках неисправности и по сервисной инструкции.</p>
@@ -1328,7 +1366,7 @@
   <li>Печатать кронштейн из <strong>ABS / ASA</strong> (внутри Box бывает тепло). PLA в сушилке может поплыть. Нейлон — если уже умеете его сушить; для первой доработки избыточен.</li>
   <li>Трубка PTFE с наружным диаметром около 4 мм: часто хватает обрезков из комплекта. Длина куска — по модели, обычно 30–70 мм. 4 мм здесь диаметр, не длина.</li>
   <li>Скотч — термостойкий: обычный двусторонний от сушки Box отлипает.</li>
-  <li>Готовые модели для старта поиска: <a href="https://www.printables.com/model/1506671-qidi-box-ptfe-filament-saver">QIDI BOX PTFE Filament Saver</a>, <a href="https://www.printables.com/model/1712709-qidi-box-ptfe-bracket">QIDI Box PTFE Bracket</a>. Сверяйте версию корпуса Box с описанием автора.</li>
+  <li>Старт поиска: <a href="https://www.printables.com/model/1506671-qidi-box-ptfe-filament-saver">PTFE Filament Saver</a> (скотч) и его <a href="https://www.printables.com/model/1634812-filament-saver-for-qidi-box-v2">V2 без скотча</a>, плюс <a href="https://www.printables.com/model/1604497-qidi-box-filament-savor-no-tape-required">вариант на винтах</a> и <a href="https://www.printables.com/model/1712709-qidi-box-ptfe-bracket">кронштейн</a>. Сверяйте ревизию Box с описанием автора. Снимать металлическое кольцо входа — только если так написано у модели и вы готовы к спору с гарантией.</li>
 </ul>
 
 <h3 id="silica">Силикагель в свободных зонах</h3>
@@ -1345,7 +1383,69 @@
 </ul>
 <p>Смена цвета — не «гель испортился», а «набрал воду». Цифры влажности на экране Box — воздух внутри ящика, не «сколько воды в прутке»; ориентир по гелю всё равно цвет и банка.</p>
 <p><strong>Как вернуть обратно (регенерация).</strong> Высыпьте гель из мешочков/корзинок и сушите <em>отдельно от катушек</em>, по инструкции на банке (часто духовка или сушилка ~100–120 °C несколько часов, пока цвет не вернётся к «сухому»). Остудите в закрытой банке/пакете и только потом кладите снова в Box или зип-лок. Цикл сушки катушек в Box на 65 °C гель обычно <em>не</em> восстанавливает до конца — для пластика и для индикатора это разные задачи. Кухонную духовку под еду и под гель не совмещайте на одном противне «заодно».</p>
-<div class="call ok"><strong>Порядок.</strong> Сначала штатная сушка Box и зип-лок с сухим гелем. Печатные корзинки внутри Box — удобство после стабильной печати, не условие первого Benchy.</div>
+<div class="call ok"><strong>Порядок.</strong> Сначала штатная сушка Box и зип-лок с сухим гелем. Печатные корзинки внутри Box — удобство после стабильной печати, не условие первого Benchy. Готовые модели: <a href="https://www.printables.com/model/1386559-high-capacity-desiccant-bin-for-qidi-box-updated">high-capacity bin</a> или более объёмный <a href="https://www.printables.com/model/1636883-qidi-box-desiccant-vessel-qidi-q2-qidi-plus-4-qidi">desiccant vessel</a> (оба на штатные винты; печатать термостойким, проверять, что катушка не трётся о корпус).</div>
+
+<h3 id="modorder">Какие моды и в каком порядке</h3>
+<p>Это не каталог всего Printables. Печатайте деталь, когда уже есть <em>симптом</em>, и только после стабильного PLA. Детали внутри камеры Q2 или внутри греющегося Box — <strong>PETG, лучше ABS/ASA</strong>: обычный PLA от тепла ползёт. Чужой макрос, замена блока питания и «основной» Klipper сюда не входят — см. конец списка. Картинки ниже — обложки моделей с Printables (что именно чинят); лицензии у авторов разные, перед коммерческой перепечаткой сверьте.</p>
+<ol class="steps">
+  <li><strong>Корзина отходов (purge / poop), как только Box меняет цвет.</strong> Иначе «какашки» сыплются за принтер. Простые без винтов: <a href="https://www.printables.com/model/1458065-qidi-q2-minimalistic-purgewaste-bin-poop-box">минималистичная</a>, <a href="https://www.printables.com/model/1390449-qidi-q2-poop-chutebucket">клипса-жёлоб</a>. Если удобнее выдвижной ящик — <a href="https://www.printables.com/model/1428946-purge-poop-waste-bin-box-for-qidi-q2">корзина с ящиком</a>. Завод тоже собрал варианты: <a href="https://wiki.qidi3d.com/en/Q2/Printable-Components">Q2 Printable Components</a> (WasteBin, riser, кожух винтов ручки, держатель TPU).
+    <div class="imgrow modshots">
+      <figure class="doc" style="margin:0"><img src="guide/media/mods/mod-poop-bin.jpg?v=3.9.6" alt="Минималистичная корзина отходов" loading="lazy"><figcaption class="cap">Лечит: purge сыплется на стол / пол</figcaption></figure>
+      <figure class="doc" style="margin:0"><img src="guide/media/mods/mod-poop-chute.jpg?v=3.9.6" alt="Жёлоб для отходов" loading="lazy"><figcaption class="cap">Лечит: то же, клипса-жёлоб</figcaption></figure>
+      <figure class="doc" style="margin:0"><img src="guide/media/mods/mod-poop-drawer.jpg?v=3.9.6" alt="Корзина с выдвижным ящиком" loading="lazy"><figcaption class="cap">Лечит: то же, удобнее вытряхивать</figcaption></figure>
+    </div>
+  </li>
+  <li><strong>PTFE на входе Box / хаб.</strong> Пыль у фидера — модели выше, в блоке про saver; фитинги PC4 уже есть — <a href="https://www.printables.com/model/1572525-qidi-box-filament-saver-pc4-m6m10">PC4-M6/M10</a>. Ошибка смены вроде <code>QDE_004_005</code> / «feeding filament failed» и зажим в 4→1 — смотрите <a href="https://www.printables.com/model/1386069-qidi-box-jam-resistant-filament-guide">jam-resistant guide</a> (разборка хаба). Не ставьте «на всякий», пока вход чистый. AMS snag-cutter — следующая ступень.
+    <div class="imgrow modshots">
+      <figure class="doc" style="margin:0"><img src="guide/media/mods/mod-ptfe-saver.jpg?v=3.9.6" alt="PTFE filament saver" loading="lazy"><figcaption class="cap">Лечит: истирание / пыль у входа Box</figcaption></figure>
+      <figure class="doc" style="margin:0"><img src="guide/media/mods/mod-jam-guide.jpg?v=3.9.6" alt="Jam-resistant filament guide" loading="lazy"><figcaption class="cap">Лечит: зажим прутка в хабе 4→1</figcaption></figure>
+    </div>
+  </li>
+  <li><strong>Трубка трётся о стекло или о винты ручки.</strong> Сначала маленькая накладка на винты, PETG: <a href="https://www.printables.com/model/1425672-qidi-q2-top-glass-handle-screw-cover">крышка винтов</a> или <a href="https://makerworld.com/en/models/2365780-qidi-q2-handle-screw-cover-ptfe-tube-protector">тот же смысл на MakerWorld</a>. Если Box стоит сверху и трубка всё равно скребёт — райзер со щелями под PLA: <a href="https://www.printables.com/model/1443536-qidi-q2-riser">+45 мм</a> или <a href="https://www.printables.com/model/1520662-slightly-taller-qidi-q2-riser">повыше, ~50 мм</a>. На нагретую камеру PLA-райзер не оставляйте.
+    <div class="imgrow modshots">
+      <figure class="doc" style="margin:0"><img src="guide/media/mods/mod-screw-cover.jpg?v=3.9.6" alt="Крышка винтов ручки" loading="lazy"><figcaption class="cap">Лечит: PTFE трётся о винты ручки</figcaption></figure>
+      <figure class="doc" style="margin:0"><img src="guide/media/mods/mod-riser-45.jpg?v=3.9.6" alt="Райзер +45 мм" loading="lazy"><figcaption class="cap">Лечит: трубка скребёт стекло под Box</figcaption></figure>
+      <figure class="doc" style="margin:0"><img src="guide/media/mods/mod-riser-50.jpg?v=3.9.6" alt="Райзер повыше" loading="lazy"><figcaption class="cap">Лечит: то же, чуть выше щель</figcaption></figure>
+    </div>
+  </li>
+  <li><strong>Силикагель в Box</strong> — когда зип-локов мало, а катушки живут в ящике. Корзинка из пункта про <a href="#silica">силикагель</a>, не «забить под крышку».
+    <div class="imgrow modshots">
+      <figure class="doc" style="margin:0"><img src="guide/media/mods/mod-desiccant.jpg?v=3.9.6" alt="High capacity desiccant bin" loading="lazy"><figcaption class="cap">Лечит: влажный воздух между сушками</figcaption></figure>
+      <figure class="doc" style="margin:0"><img src="guide/media/mods/mod-desiccant-vessel.jpg?v=3.9.6" alt="Desiccant vessel" loading="lazy"><figcaption class="cap">Лечит: то же, больший объём на винтах</figcaption></figure>
+    </div>
+  </li>
+  <li><strong>Только если сломалось именно это.</strong>
+    <ul>
+      <li>TPU вылезает в щель за шестернями экструдера и встаёт — <a href="https://www.printables.com/model/1491712-qidi-q2-tpu-fixer">TPU fixer</a> (ABS/ASA). Это разборка головы: пружинки легко улетают. Сначала сухой TPU, внешняя катушка и штатный профиль, не этот мод в первый вечер с гибким.</li>
+      <li>При откате пруток сматывается <em>внутрь</em> Box, а катушка не крутится — <a href="https://www.printables.com/model/1654607-qidi-box-filament-retraction-fix-gear-pressure-spa">проставка давления шестерён</a> (ABS/ASA, мотор фидера). Не ставьте заранее «чтобы тише».</li>
+      <li>Нужны одновременно хаб Box и внешняя катушка (TPU) — <a href="https://www.printables.com/model/1494002-qidi-q2-q2c-spool-holder-and-box-hub-bracket">кронштейн хаб + держатель сзади</a> или <a href="https://www.printables.com/model/1611855-qidi-q2-top-spool-holder">верхний держатель</a> (Box можно не снимать; нужны подшипники по описанию). На части ревизий задние винты с гайками изнутри; не перетягивайте. Адаптер, который <em>рассверливает</em> заднюю панель, для этого не нужен. Надоело каждый раз снимать PTFE хаб→принтер — смотрите <a href="#ysplitter">Y-splitter</a>.</li>
+      <li>Картонная катушка буксует или сыпет пыль на ролики — кольцо по <em>измеренному</em> диаметру борта, не «на глаз». Пример с защёлкой: <a href="https://www.printables.com/model/1565304-secure-snap-cardboard-spool-ring-for-qidi-box-jar">Secure-Snap</a> (в описании свои диаметры, не каждый eSUN). Кольцо внутри сушки — PETG или ABS/ASA, не PLA.</li>
+      <li>Катушка слишком маленькая по диаметру (~195 мм, часто SUNLU) лежит на дне Box и не сматывается — <a href="https://www.printables.com/model/1377336-qidi-box-adapter-for-filament-rolls-with-less-diam">поднять задний ролик</a> (или родные/запасные ролики из wiki Box, если они у вас в комплекте).</li>
+      <li>Пруток стабильно цепляется в датчике конца прутка на голове, особенно с Box — <a href="https://www.printables.com/model/1562832-q2-filament-entry-sensor-d2f-updated-model">корпус датчика D2F</a>. Это уже переключатель, шарик и разборка, не «напечатал и защёлкнул».</li>
+    </ul>
+    <div class="imgrow modshots">
+      <figure class="doc" style="margin:0"><img src="guide/media/mods/mod-tpu-fixer.jpg?v=3.9.6" alt="TPU fixer" loading="lazy"><figcaption class="cap">Лечит: TPU вылез за шестерни</figcaption></figure>
+      <figure class="doc" style="margin:0"><img src="guide/media/mods/mod-retract-spacer.jpg?v=3.9.6" alt="Проставка шестерён фидера" loading="lazy"><figcaption class="cap">Лечит: откат сматывает пруток внутрь Box</figcaption></figure>
+      <figure class="doc" style="margin:0"><img src="guide/media/mods/mod-hub-bracket.jpg?v=3.9.6" alt="Кронштейн хаба и катушки" loading="lazy"><figcaption class="cap">Лечит: хаб + внешняя катушка сзади</figcaption></figure>
+      <figure class="doc" style="margin:0"><img src="guide/media/mods/mod-top-spool.jpg?v=3.9.6" alt="Верхний держатель катушки" loading="lazy"><figcaption class="cap">Лечит: внешняя катушка сверху, Box на месте</figcaption></figure>
+      <figure class="doc" style="margin:0"><img src="guide/media/mods/mod-cardboard-ring.jpg?v=3.9.6" alt="Кольцо на картонную катушку" loading="lazy"><figcaption class="cap">Лечит: картон буксует / сыпет пыль</figcaption></figure>
+      <figure class="doc" style="margin:0"><img src="guide/media/mods/mod-small-spool.jpg?v=3.9.6" alt="Адаптер маленькой катушки" loading="lazy"><figcaption class="cap">Лечит: маленькая шпуля лежит на дне</figcaption></figure>
+      <figure class="doc" style="margin:0"><img src="guide/media/mods/mod-d2f-sensor.jpg?v=3.9.6" alt="Корпус датчика D2F" loading="lazy"><figcaption class="cap">Лечит: зацеп в датчике конца прутка</figcaption></figure>
+      <figure class="doc" style="margin:0"><img src="guide/media/mods/mod-y-splitter.jpg?v=3.9.6" alt="Y-splitter" loading="lazy"><figcaption class="cap">Лечит: не перетыкать PTFE Box↔внешняя</figcaption></figure>
+    </div>
+  </li>
+  <li><strong>Удобство, не лечение брака.</strong> Заглушки отверстий Z — <a href="https://www.printables.com/model/1541917-qidi-q2-z-holecover-tpu">крышки из TPU</a> (в горячей камере TPU сам может поплыть). Пыль и мелочь на передней кромке корпуса — <a href="https://www.printables.com/model/1447667-enclosure-dust-cover-for-qidi-q2">dust cover</a>. Блик на камере — <a href="https://www.printables.com/model/1475468-qidi-q2-camera-hood-eliminate-led-light-bloomflare">бленда</a>. Слабый штатный свет — <a href="https://www.printables.com/model/1490849-qidi-q2-full-width-led-mount">крепление ленты</a> (только <strong>24 В</strong>, не 12 В на разъём принтера). Полка под сам Box поверх стекла — <a href="https://www.printables.com/model/1464012-qidi-q2-box-risershelf">Box riser/shelf</a>: это уже тяжёлая конструкция и перекладка PTFE, не «вечером после Benchy»; сначала разберитесь с трением трубки о стекло (пункт про райзер).
+    <div class="imgrow modshots">
+      <figure class="doc" style="margin:0"><img src="guide/media/mods/mod-z-holecover.jpg?v=3.9.6" alt="Заглушки отверстий Z" loading="lazy"><figcaption class="cap">Удобство: закрыть отверстия Z</figcaption></figure>
+      <figure class="doc" style="margin:0"><img src="guide/media/mods/mod-dust-cover.jpg?v=3.9.6" alt="Пылезащитная кромка" loading="lazy"><figcaption class="cap">Удобство: меньше пыли на кромке</figcaption></figure>
+      <figure class="doc" style="margin:0"><img src="guide/media/mods/mod-camera-hood.jpg?v=3.9.6" alt="Бленда камеры" loading="lazy"><figcaption class="cap">Удобство: убрать блик LED на камере</figcaption></figure>
+      <figure class="doc" style="margin:0"><img src="guide/media/mods/mod-led-mount.jpg?v=3.9.6" alt="Крепление LED-ленты" loading="lazy"><figcaption class="cap">Удобство: ярче свет (только 24 В)</figcaption></figure>
+      <figure class="doc" style="margin:0"><img src="guide/media/mods/mod-box-shelf.jpg?v=3.9.6" alt="Полка под Box" loading="lazy"><figcaption class="cap">Удобство: полка/райзер под Box</figcaption></figure>
+    </div>
+  </li>
+</ol>
+<p><strong>Где листать дальше, не скачивая пачкой.</strong> Завод: <a href="https://wiki.qidi3d.com/en/Q2/Printable-Components">печатные детали Q2</a> и <a href="https://wiki.qidi3d.com/en/QIDIBOX">wiki Box</a>. Теги: <a href="https://www.printables.com/tag/qidiq2">QIDIQ2</a>, <a href="https://www.printables.com/tag/qidibox">QIDIBOX</a>. Отобранная полка: <a href="https://www.printables.com/@natek/collections/2829187">Qidi Q2 Mods у nate</a>. Крупные личные полки с той же орбиты (карта, не чеклист): <a href="https://www.printables.com/@Tranbert/collections/2623190">Tranbert</a>, <a href="https://www.printables.com/@Ka6lui_1640897/collections/3107819">Ka6lui Q2 Stuff</a>, <a href="https://www.printables.com/@CamBlade90_2343662/collections/2748861">CamBlade90</a>, <a href="https://www.printables.com/@lutschkarpfen_299810/collections/2896363">lutschkarpfen Box</a>. По-русски удобно смотреть карточки на <a href="https://polyzon.org/m/qidi">Polyzon</a>. Карта сообщества: <a href="https://github.com/qidi-community/q2-wiki">qidi-community/q2-wiki</a>, обзор <a href="https://printer-hub.com/posts/qidi-q2-best-mods">Printer-Hub</a>. Модель берите ту, у которой в описании ваша ревизия и свежие «сделал» — число скачиваний само по себе не диагноз. Длинные «complete mods guides» от нейросетей и чужих GitHub часто спорят друг с другом и с вашей прошивкой: это карта идей, не чеклист первого месяца.</p>
+<div class="call stop"><strong>Не учебный порядок, даже если так пишут обзоры.</strong> SSH и чужой <code>PRINT_START</code> / one-liner-инсталляторы макросов, BunnyBox / Happy Hare / HelixScreen, откат прошивки, mainline Klipper, автоскрипты PA «в конфиг само», замена блока питания, смена штатного обдува (dual-flow duct и турбина 5015), вытяжка 120 мм, RFID-программатор, вырез люка в боковине Box, Nylok и правка <code>screws_tilt_adjust</code> «профилактически». Райзер в этих списках — проставка под <em>стекло</em>, не ножки. Комплект «подключить Box» покупать не нужно: у Combo хаб уже в коробке. Сопло с завода уже биметалл, фильтр уже предфильтр + HEPA H12 + уголь — «купить 3-in-1 с нуля» этот комплект не описывает. Чужие quick start на GitHub часто заточены под чужую ветку прошивки (и иногда устаревшие цифры вроде 01.01.02) — не копируйте пакетом на 01.01.03.</div>
 
 
 <h2 id="words">Короткий словарь</h2>

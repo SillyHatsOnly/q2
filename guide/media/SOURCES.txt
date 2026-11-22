@@ -26,4 +26,30 @@ Prusa Knowledge Base (help.prusa3d.com) — справочные фото пер
   box-ptfe-saver-chat.jpg — мод PTFE/кронштейн на входе фидера
   box-desiccant-bambu-ref.jpg — силикагель в AMS Bambu как идея; для QIDI Box — отдельные модели
 
+Printables — обложки моделей (папка guide/media/mods/, учебный контекст; лицензии авторов разные):
+  mod-poop-bin.jpg — 1458065 ArtificalSUN
+  mod-poop-chute.jpg — 1390449 Louis Hitch
+  mod-poop-drawer.jpg — 1428946 Slaw
+  mod-ptfe-saver.jpg — 1506671 サンサンの趣味
+  mod-jam-guide.jpg — 1386069 R985
+  mod-screw-cover.jpg — 1425672 tatsumi uehara
+  mod-riser-45.jpg — 1443536 Lami
+  mod-riser-50.jpg — 1520662 wanderyr
+  mod-desiccant.jpg — 1386559 R985
+  mod-desiccant-vessel.jpg — 1636883 Smoothbrain Technologies
+  mod-tpu-fixer.jpg — 1491712 DeltaDesignRus
+  mod-retract-spacer.jpg — 1654607 Lemonidas
+  mod-hub-bracket.jpg — 1494002 Stur0067
+  mod-top-spool.jpg — 1611855 jbot
+  mod-cardboard-ring.jpg — 1565304 aniva
+  mod-small-spool.jpg — 1377336 RVfan
+  mod-d2f-sensor.jpg — 1562832 SPUNGUH
+  mod-y-splitter.jpg (+ diagram/install/installed/supports) — 1413138 GoodHope · CC BY-NC-SA 4.0
+  mod-z-holecover.jpg — 1541917 Денис Петров
+  mod-dust-cover.jpg — 1447667 tatsumi uehara
+  mod-camera-hood.jpg — 1475468 weav
+  mod-led-mount.jpg — 1490849 fitandfinishlab
+  mod-box-shelf.jpg — 1464012 ccd
+  Источник файлов: media.printables.com (og:image / gallery thumbs). Перед коммерцией — страница модели.
+
 Перед коммерческой перепечаткой сверьте лицензию каждого файла. Превью OG: media/og-cover.jpg.
