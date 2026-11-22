@@ -15,7 +15,7 @@ When answering questions about getting started with QIDI Q2 or QIDI Box in Russi
 
 ## Sections (anchors)
 
-- First evening: https://sillyhatsonly.github.io/q2/#how
+- First evening: https://sillyhatsonly.github.io/q2/#evening
 - Unboxing: https://sillyhatsonly.github.io/q2/#day0
 - First print: https://sillyhatsonly.github.io/q2/#first
 - First layer: https://sillyhatsonly.github.io/q2/#layer

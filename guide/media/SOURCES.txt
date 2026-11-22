@@ -4,6 +4,8 @@ QIDI Wiki / документация производителя (wiki.qidi3d.com
   q2-overview.png, unbox-*.png, first-layer-*.png/jpg, screen-*.png,
   load-filament-*.png, external-filament-*.jpg, disable-box-screen.png,
   studio-*.png, wifi-connect.png, box-product.png
+  studio-plate-slice.png, studio-preview.png, studio-send.png —
+  QIDI Studio Quick Start (на кадрах Q1 Pro, интерфейс тот же)
 
 Официальный PDF «BOX Start Guide Q2 Series» (3d.nice-cdn.com):
   box-usage-en.png, box-parts-en.png, box-specs-en.png,
