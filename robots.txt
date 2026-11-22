@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sillyhatsonly.github.io/q2/sitemap.xml

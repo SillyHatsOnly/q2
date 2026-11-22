@@ -26,7 +26,7 @@ Prusa Knowledge Base (help.prusa3d.com) — справочные фото пер
   box-ptfe-saver-chat.jpg — мод PTFE/кронштейн на входе фидера
   box-desiccant-bambu-ref.jpg — силикагель в AMS Bambu как идея; для QIDI Box — отдельные модели
 
-Printables — обложки моделей (папка guide/media/mods/, учебный контекст; лицензии авторов разные):
+Printables — кадры галереи моделей (папка guide/media/mods/; не og-cover 1200×630, а thumbs/inside или оригинал; лицензии авторов разные):
   mod-poop-bin.jpg — 1458065 ArtificalSUN
   mod-poop-chute.jpg — 1390449 Louis Hitch
   mod-poop-drawer.jpg — 1428946 Slaw
